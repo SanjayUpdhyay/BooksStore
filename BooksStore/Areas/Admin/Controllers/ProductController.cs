@@ -2,12 +2,15 @@
 using BookStore.DataAccess.Repository.IRepository;
 using BookStore.Models;
 using BookStore.Models.ViewModels;
+using BookStore.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BooksStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _repo;
@@ -19,8 +22,8 @@ namespace BooksStore.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Product> objProjectList = _repo.Product.GetAll(includeProperties: "Category").ToList();
-            return View(objProjectList);
+            List<Product> productList = _repo.Product.GetAll(includeProperties: "Category").ToList();
+            return View(productList);
         }
 
         #region Upsert
