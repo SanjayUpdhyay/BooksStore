@@ -2,6 +2,9 @@
 using System.Diagnostics;
 using BookStore.Models;
 using BookStore.DataAccess.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using BookStore.Utility;
 
 namespace BooksStore.Areas.Customer.Controllers
 {
@@ -22,8 +25,44 @@ namespace BooksStore.Areas.Customer.Controllers
 
         public IActionResult Details(int? productId)
         {
-            Product objProject = _repo.Product.Get(product => product.Id == productId,includeProperties: "Category");
-            return View(objProject);
+            ShoppingCart shoppingCart = new()
+            {
+                Product = _repo.Product.Get(product => product.Id == productId, includeProperties: "Category"),
+                Quantity = 1,
+                ProductId = productId.GetValueOrDefault()
+            };
+            
+            return View(shoppingCart);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Details(ShoppingCart shoppingCart)
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            shoppingCart.ApplicationUserId = userId;
+
+            var shoppingCarts = _repo.ShoppingCart.Get(s => s.ProductId == shoppingCart.ProductId && s.ApplicationUserId == userId);
+
+            if(shoppingCarts == null)
+            {
+                _repo.ShoppingCart.Add(shoppingCart);
+            }
+            else
+            {
+                shoppingCarts.Quantity += shoppingCart.Quantity;
+                _repo.ShoppingCart.Update(shoppingCarts);
+            }
+            
+            _repo.Save();
+            
+            HttpContext.Session.SetInt32(SD.SessionCart, _repo.ShoppingCart.GetAll(s => s.ApplicationUserId == userId).Count());   // Set Session
+
+            TempData["success"] = "Cart Updated Successfully";
+
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Privacy()

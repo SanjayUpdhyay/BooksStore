@@ -25,10 +25,14 @@ namespace BookStore.DataAccess.Repository
             _DbSet.Add(entity);
         }
 
-        public T Get(Expression<Func<T, bool>> expression, string? includeProperties = null)
+        public T Get(Expression<Func<T, bool>> expression, string? includeProperties = null, bool tracked = false)
         {
-            IQueryable<T> query = _DbSet;
-            query =  query.Where(expression);
+            IQueryable<T> query;
+
+            if (tracked) query = _DbSet;
+            else query = _DbSet.AsNoTracking();
+            
+            query = query.Where(expression);
 
             if (!string.IsNullOrEmpty(includeProperties))
             {
@@ -41,11 +45,13 @@ namespace BookStore.DataAccess.Repository
             #pragma warning disable CS8603 // Possible null reference return.
             return query.FirstOrDefault();
             #pragma warning restore CS8603 // Possible null reference return.
+
         }
 
-        public IEnumerable<T> GetAll(string? includeProperties = null)
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? expression, string? includeProperties = null)
         {
             IQueryable<T> query = _DbSet;
+            if(expression != null) query = query.Where(expression);
 
             if (!string.IsNullOrEmpty(includeProperties))
             {
