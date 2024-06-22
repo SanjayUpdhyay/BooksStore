@@ -55,7 +55,7 @@ namespace BookStore.DataAccess.DbInitializer
                     UserName = "Test_Admin",
                     Email = "TestAdmin@gmail.com",
                     Name = "Admin",
-                }, "Test12345").GetAwaiter().GetResult();
+                }, "Test@12345").GetAwaiter().GetResult();
 
                 ApplicationUser user = _repo.ApplicationUsers.FirstOrDefault(u => u.Email == "TestAdmin@gmail.com");
                 _userManager.AddToRoleAsync(user, SD.Role_Admin).GetAwaiter().GetResult();
