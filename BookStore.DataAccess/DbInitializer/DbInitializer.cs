@@ -60,6 +60,8 @@ namespace BookStore.DataAccess.DbInitializer
                 ApplicationUser user = _repo.ApplicationUsers.FirstOrDefault(u => u.Email == "TestAdmin@gmail.com");
                 _userManager.AddToRoleAsync(user, SD.Role_Admin).GetAwaiter().GetResult();
             }
+
+            return;
         }
     }
 }
