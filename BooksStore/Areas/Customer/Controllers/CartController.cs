@@ -212,7 +212,7 @@ namespace BooksStore.Areas.Customer.Controllers
 
         private StatusCodeResult PaymentAndSave()
         {
-            var domin = "https://localhost:7113/";
+            var domin = Request.Scheme + "://" + Request.Host.Value + "/";
             var options = new Stripe.Checkout.SessionCreateOptions
             {
                 SuccessUrl = domin + $"customer/cart/OrderConfirmation?id={ShoppingCartVM.OrderHeader.Id}",

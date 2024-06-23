@@ -161,7 +161,7 @@ namespace BooksStore.Areas.Admin.Controllers
 
         private StatusCodeResult PaymentAndSave()
         {
-            var domin = "https://localhost:7113/";
+            var domin = Request.Scheme + "://" + Request.Host.Value + "/"; ;
             var options = new Stripe.Checkout.SessionCreateOptions
             {
                 SuccessUrl = domin + $"admin/order/PaymentConfirmation?orderHeaderId={OrderVM.orderHeader.Id}",
