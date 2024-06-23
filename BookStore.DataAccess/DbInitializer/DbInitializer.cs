@@ -52,7 +52,7 @@ namespace BookStore.DataAccess.DbInitializer
 
                 _userManager.CreateAsync(new ApplicationUser
                 {
-                    UserName = "Test_Admin",
+                    UserName = "TestAdmin@gmail.com",
                     Email = "TestAdmin@gmail.com",
                     Name = "Admin",
                 }, "Test@12345").GetAwaiter().GetResult();

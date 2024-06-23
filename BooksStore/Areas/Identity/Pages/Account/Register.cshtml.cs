@@ -153,8 +153,9 @@ namespace BooksStore.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();    // Updated Identity User To Application User
 
-                await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
+                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                user.Name = Input.UserName;
 
                 if(Input.Role == SD.Role_Company)
                 {
