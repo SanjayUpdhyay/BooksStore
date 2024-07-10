@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - BooksStore
+name: Build and deploy ASP.Net Core app to Azure Web App - booksStore
 
 on:
   push:
@@ -52,15 +52,15 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_2691AE2C9B4F4392B1001DE82F87056B }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_F7A8BAAC0DBE4F00B2861EE31A5299A2 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_A391CDE9B489440EBC4D9D657DD33987 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_AA70107496D942E1B7DB85A50143162A }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_8D0AECBDC99B48148D2848E4BE0874CF }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_E1432F953E1E46DAAB110C404232D9AF }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'BooksStore'
+          app-name: 'booksStore'
           slot-name: 'Production'
           package: .
           
