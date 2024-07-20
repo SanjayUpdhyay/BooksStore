@@ -17,6 +17,6 @@ namespace BookStore.Models
         public string? City { get; set; }
         public string? State { get; set; }
         public int? PostalCode { get; set; }
-        public int? PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
     }
 }

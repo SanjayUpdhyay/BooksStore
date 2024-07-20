@@ -9,9 +9,9 @@ function loadDataTable() {
         "ajax": { url: '/admin/company/getall' },
         "columns": [
             { data: 'name', "width": "20%" },
-            { data: 'streetAddress', "width": "15%" },
+            { data: 'streetAddress', "width": "20%" },
             { data: 'city', "width": "10%" },
-            { data: 'state', "width": "15%" },
+            { data: 'state', "width": "10%" },
             { data: 'phoneNumber', "width": "15%" },
             {
                 data: 'id',

@@ -33,7 +33,7 @@ namespace BookStore.DataAccess.Repository
                 objFromDb.CategoryId = product.CategoryId;
                 objFromDb.Author = product.Author;
                 //objFromDb.ProductImages = product.ProductImages;
-                if (product.ImageUrl != null)
+                if (!string.IsNullOrEmpty(product.ImageUrl))
                 {
                     objFromDb.ImageUrl = product.ImageUrl;
                 }
